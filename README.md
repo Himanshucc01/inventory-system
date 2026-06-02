@@ -2,173 +2,185 @@
 
 A full-stack, production-ready Inventory & Order Management System built with:
 
-- **Backend**: FastAPI (Python) + PostgreSQL + SQLAlchemy
-- **Frontend**: React + Vite + Tailwind CSS
-- **Infrastructure**: Docker + Docker Compose
+## Tech Stack
+
+### Backend
+
+* FastAPI
+* Python
+* PostgreSQL
+* SQLAlchemy
+
+### Frontend
+
+* React
+* Vite
+* Tailwind CSS
+
+### DevOps & Infrastructure
+
+* Docker
+* Docker Compose
+* Render
+* Vercel
+
+---
+
+# Live Links
+
+### Live Frontend
+
+https://inventory-system-ochre-six.vercel.app/dashboard
+
+### Backend API
+
+https://inventory-system-bvf7.onrender.com
+
+### Swagger Documentation
+
+https://inventory-system-bvf7.onrender.com/docs
+
+### GitHub Repository
+
+https://github.com/Himanshucc01/inventory-system
+
+### Docker Backend Image
+
+https://hub.docker.com/r/himxnshu001/inventory-backend
 
 ---
 
 ## Features
 
-- **Products**: Create, read, update, delete products with unique SKU enforcement
-- **Customers**: Manage customers with unique email enforcement
-- **Orders**: Place orders with automatic inventory validation and stock reduction
-- **Inventory**: Real-time stock tracking; orders blocked when stock is insufficient
-- **Order Management**: Update order status (pending → confirmed → shipped → delivered / cancelled)
-- **Stock Restoration**: Cancelling an order automatically restores product stock
-- **Dashboard**: Live stats — total products, customers, orders, revenue, low-stock alerts
-
----
-
-## Business Rules
-
-| Rule | Description |
-|------|-------------|
-| Unique SKU | No two products can share a SKU |
-| Unique Email | No two customers can share an email address |
-| Stock Validation | Orders are rejected if any item's requested quantity exceeds available stock |
-| Automatic Stock Reduction | Stock is reduced immediately when an order is placed |
-| Stock Restoration | Cancelling or deleting an order restores all reserved stock |
-| Low Stock Alert | Products with ≤ 10 units are flagged in the dashboard |
+* Products CRUD management with SKU validation
+* Customer management with unique email validation
+* Real-time inventory stock tracking
+* Order placement with automatic stock reduction
+* Order cancellation with stock restoration
+* Dashboard analytics and low-stock alerts
+* Dockerized full-stack architecture
+* Production deployment support
 
 ---
 
 ## Quick Start (Docker Compose)
 
 ### Prerequisites
-- Docker ≥ 24.x
-- Docker Compose ≥ 2.x
+
+* Docker ≥ 24.x
+* Docker Compose ≥ 2.x
 
 ### Steps
 
-```bash
-# 1. Clone the repository
-git clone <your-repo-url>
+```bash id="z9x2m1"
+git clone https://github.com/Himanshucc01/inventory-system.git
+
 cd inventory-system
 
-# 2. Copy and configure environment
-cp .env.example .env
-# Edit .env with your credentials
+copy .env.example .env
 
-# 3. Start all services
 docker compose up --build
+```
 
-# 4. Open the app
-# Frontend: http://localhost:3000
-# Backend API: http://localhost:8000
-# API Docs: http://localhost:8000/docs
+---
+
+## Local URLs
+
+### Frontend
+
+```txt id="m8q4v2"
+http://localhost:3000
+```
+
+### Backend API
+
+```txt id="r5k1t8"
+http://localhost:8000
+```
+
+### Swagger Docs
+
+```txt id="x3w7n6"
+http://localhost:8000/docs
+```
+
+---
+
+## Docker Usage
+
+### Pull Docker Image
+
+```bash id="p7f2k9"
+docker pull himxnshu001/inventory-backend
+```
+
+### Run Backend Container
+
+```bash id="n4v8q1"
+docker run -p 8000:8000 himxnshu001/inventory-backend
 ```
 
 ---
 
 ## Environment Variables
 
-| Variable | Default | Description |
-|----------|---------|-------------|
-| `POSTGRES_USER` | `postgres` | PostgreSQL username |
-| `POSTGRES_PASSWORD` | `postgres` | PostgreSQL password (**change in production**) |
-| `POSTGRES_DB` | `inventory_db` | Database name |
-| `SECRET_KEY` | `changeme` | App secret key (**change in production**) |
-| `DEBUG` | `false` | Enable debug mode |
-
----
-
-## API Reference
-
-### Products
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/api/products/` | List all products (supports `?search=`, `?category=`) |
-| POST | `/api/products/` | Create a product |
-| GET | `/api/products/{id}` | Get a product |
-| PUT | `/api/products/{id}` | Update a product |
-| DELETE | `/api/products/{id}` | Delete a product |
-| GET | `/api/products/low-stock` | Products with stock ≤ threshold |
-
-### Customers
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/api/customers/` | List all customers (supports `?search=`) |
-| POST | `/api/customers/` | Create a customer |
-| GET | `/api/customers/{id}` | Get a customer |
-| PUT | `/api/customers/{id}` | Update a customer |
-| DELETE | `/api/customers/{id}` | Delete a customer |
-
-### Orders
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/api/orders/` | List all orders (supports `?status=`, `?customer_id=`) |
-| POST | `/api/orders/` | Create an order (validates + reduces stock) |
-| GET | `/api/orders/{id}` | Get an order with items |
-| PUT | `/api/orders/{id}` | Update order status |
-| DELETE | `/api/orders/{id}` | Delete an order (restores stock) |
-| GET | `/api/orders/stats` | Dashboard statistics |
-
-Interactive API docs: `http://localhost:8000/docs`
+| Variable       | Description                           |
+| -------------- | ------------------------------------- |
+| `DATABASE_URL` | PostgreSQL database connection string |
+| `SECRET_KEY`   | Backend secret key                    |
+| `DEBUG`        | Debug mode                            |
+| `VITE_API_URL` | Backend API URL for frontend          |
 
 ---
 
 ## Deployment
 
-### Backend (Render / Railway / Fly.io)
-1. Connect your GitHub repository
-2. Set environment variables from `.env.example`
-3. Build command: `pip install -r requirements.txt`
-4. Start command: `uvicorn main:app --host 0.0.0.0 --port $PORT`
+### Backend Deployment — Render
 
-### Frontend (Vercel / Netlify)
-1. Connect your GitHub repository, set root to `frontend/`
-2. Build command: `npm run build`
-3. Output directory: `dist`
-4. Set `VITE_API_URL` to your backend's public URL
+#### Root Directory
 
-### Database
-Use a managed PostgreSQL service (Render Postgres, Supabase, Neon, Railway Postgres) and supply the connection string via `DATABASE_URL`.
-
----
-
-## Project Structure
-
+```txt id="g6p1x4"
+backend
 ```
-inventory-system/
-├── backend/
-│   ├── main.py          # FastAPI app entry
-│   ├── config.py        # Settings via env vars
-│   ├── database.py      # SQLAlchemy engine & session
-│   ├── models.py        # ORM models
-│   ├── schemas.py       # Pydantic request/response schemas
-│   ├── routers/
-│   │   ├── products.py
-│   │   ├── customers.py
-│   │   └── orders.py
-│   ├── requirements.txt
-│   └── Dockerfile
-├── frontend/
-│   ├── src/
-│   │   ├── App.jsx
-│   │   ├── main.jsx
-│   │   ├── index.css
-│   │   ├── components/
-│   │   │   ├── Layout.jsx
-│   │   │   └── Modal.jsx
-│   │   ├── pages/
-│   │   │   ├── Dashboard.jsx
-│   │   │   ├── Products.jsx
-│   │   │   ├── Customers.jsx
-│   │   │   └── Orders.jsx
-│   │   └── utils/
-│   │       └── api.js
-│   ├── nginx.conf
-│   ├── Dockerfile
-│   └── package.json
-├── docker-compose.yml
-├── .env.example
-├── .gitignore
-└── README.md
+
+#### Build Command
+
+```bash id="c9k3r7"
+pip install -r requirements.txt
+```
+
+#### Start Command
+
+```bash id="u2n8m5"
+uvicorn main:app --host 0.0.0.0 --port $PORT
 ```
 
 ---
 
-## License
+### Frontend Deployment — Vercel
 
-MIT
+#### Root Directory
+
+```txt id="j5w9q2"
+frontend
+```
+
+#### Build Command
+
+```bash id="b1x7m6"
+npm run build
+```
+
+#### Output Directory
+
+```txt id="d4v2k8"
+dist
+```
+
+#### Frontend Environment Variable
+
+```env id="q8m5r1"
+VITE_API_URL=https://inventory-system-bvf7.onrender.com
+```
+
+---
