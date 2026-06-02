@@ -132,7 +132,7 @@ http://localhost:8000/docs
 
 ## Deployment
 
-### Backend (Render / Railway / Fly.io)
+### Backend (Render)
 
 1. Connect your GitHub repository
 2. Set environment variables from `.env.example`
@@ -148,7 +148,7 @@ pip install -r requirements.txt
 uvicorn main:app --host 0.0.0.0 --port $PORT
 ```
 
-### Frontend (Vercel / Netlify)
+### Frontend (Vercel)
 
 1. Connect your GitHub repository, set root to `frontend/`
 2. Build command:
@@ -209,6 +209,4 @@ https://hub.docker.com/r/himxnshu001/inventory-backend
 
 ---
 
-## License
 
-MIT
