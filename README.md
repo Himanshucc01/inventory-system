@@ -203,10 +203,6 @@ https://inventory-system-bvf7.onrender.com
 
 https://inventory-system-bvf7.onrender.com/docs
 
-### GitHub Repository
-
-https://github.com/Himanshucc01/inventory-system
-
 ### Docker Backend Image
 
 https://hub.docker.com/r/himxnshu001/inventory-backend
